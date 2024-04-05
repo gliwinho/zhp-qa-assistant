@@ -1,18 +1,12 @@
-from langchain_openai import ChatOpenAI
-from langchain.prompts import PromptTemplate
+from langchain_core.language_models import BaseChatModel
+from langchain_core.prompts import BasePromptTemplate
 from langchain.chains import LLMChain
-from dotenv import load_dotenv, find_dotenv
 
-_ = load_dotenv(find_dotenv())
 
-llm = ChatOpenAI(model_name="gpt-3.5-turbo")
-
-prompt = PromptTemplate(
-    template="{input}",
-    input_variables=['input']
-)
-
-question_chain = LLMChain(
-    llm=llm,
-    prompt=prompt
-)
+class Chain(LLMChain):
+    def __init__(
+            self,
+            llm: BaseChatModel,
+            prompt: BasePromptTemplate
+    ):
+        super().__init__(llm=llm, prompt=prompt)

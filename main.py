@@ -1,9 +1,19 @@
-from core.chain import question_chain
+from pathlib import Path
+from core.rag import chain, data_handler
 
-if __name__ == "__main__":
+
+def main():
+    data_handler.save_docs_to_vectorstore((Path.cwd() / "data").glob("*.pdf"))
+    db = data_handler.load_docs_from_vectorstore()
     while True:
-        content = input('>> ')
-        output = question_chain.invoke({
-            "input": content
+        question = input('>> ')
+        context = db.max_marginal_relevance_search(question, k=3, fetch_k=5)
+        output = chain.invoke({
+            "context": context,
+            "question": question
         })
         print(output["text"])
+
+
+if __name__ == "__main__":
+    main()
