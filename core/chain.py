@@ -4,6 +4,8 @@ from langchain.chains import LLMChain
 
 
 class Chain(LLMChain):
+    """Class responsible for creating LLM chain with llm and prompt as attributes"""
+
     def __init__(
             self,
             llm: BaseChatModel,
