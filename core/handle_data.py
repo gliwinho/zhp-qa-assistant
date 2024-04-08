@@ -1,6 +1,6 @@
 from langchain.text_splitter import TextSplitter
-from langchain_community.document_loaders.pdf import BasePDFLoader
 from langchain_community.vectorstores import Chroma
+from langchain_community.document_loaders.unstructured import UnstructuredBaseLoader
 from langchain_core.vectorstores import VectorStore
 from langchain_core.embeddings import Embeddings
 from pathlib import Path
@@ -14,7 +14,7 @@ class DataHandler:
     def __init__(
             self,
             text_splitter: TextSplitter,
-            loader: type[BasePDFLoader],
+            loader: type[UnstructuredBaseLoader],
             embeddings: Embeddings
     ):
         self.text_splitter = text_splitter
